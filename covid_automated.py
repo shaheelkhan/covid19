@@ -7,6 +7,8 @@ Created on Mon Mar 23 19:53:52 2020
 
 
 #Import required libraries
+import os
+import glob
 import pandas as pd
 from datetime import datetime
 
@@ -44,6 +46,13 @@ combined_data = combined_csv(confirmed_data,death_data,recovered_data)
 combined_data['Updated_date'] = pd.to_datetime(combined_data['Updated_date'])
 
 #Export the combine data as a csv file
+
+os.chdir("C:\\Users\\Shaheel\\Desktop\\Covid_World\\covid19\\")
+all_filenames = [file for file in glob.glob('*.{}'.format('csv'))]
+
+if 'combined_data.csv' in all_filenames:
+                os.remove("C:\\Users\\Shaheel\\Desktop\\Covid_World\\covid19\\combined_data.csv")
+
 combined_data.to_csv('combined_data.csv',index=False,encoding='utf-8-sig')
 
         
