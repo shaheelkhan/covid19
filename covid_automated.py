@@ -6,18 +6,22 @@ Created on Mon Mar 23 19:53:52 2020
 """
 
 
+#Import required libraries
 import pandas as pd
 from datetime import datetime
 
 
+#URLs to be used
 confirmed_url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 death_url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
 recovered_url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
 
+#Creating a DataFrame 
 confirmed_data = pd.read_csv(confirmed_url)
 death_data = pd.read_csv(death_url)
 recovered_data = pd.read_csv(recovered_url)
 
+#Function to upivot and concatenate the three dataframe into one
 def combined_csv(data1,data2,data3):
         data = [data1,data2,data3]
         x =[]
@@ -33,10 +37,13 @@ def combined_csv(data1,data2,data3):
         
         return combined
 
+
 combined_data = combined_csv(confirmed_data,death_data,recovered_data)
+
+#Change the datatype of date column to datetime
 combined_data['Updated_date'] = pd.to_datetime(combined_data['Updated_date'])
 
-
+#Export the combine data as a csv file
 combined_data.to_csv('combined_data.csv',index=False,encoding='utf-8-sig')
 
         
