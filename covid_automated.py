@@ -47,12 +47,13 @@ combined_data['Updated_date'] = pd.to_datetime(combined_data['Updated_date'])
 
 #Export the combine data as a csv file
 
-os.chdir("C:\\Users\\Shaheel\\Desktop\\Covid_World\\covid19\\")
+path = os.getcwd()
+path = path + '\\'
+os.chdir(path)
 all_filenames = [file for file in glob.glob('*.{}'.format('csv'))]
 
 if 'combined_data.csv' in all_filenames:
-                os.remove("C:\\Users\\Shaheel\\Desktop\\Covid_World\\covid19\\combined_data.csv")
-
+                os.remove(path+'combined_data.csv')
 combined_data.to_csv('combined_data.csv',index=False,encoding='utf-8-sig')
 
         
